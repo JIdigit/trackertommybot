@@ -4,9 +4,9 @@
 - [x] Task: Project Scaffolding [084622d]
     - [x] Initialize Node.js project and install core dependencies (express, grammy, dotenv).
     - [x] Set up project structure and environment variables.
-- [ ] Task: Webhook Endpoint Implementation
-    - [ ] Create a POST endpoint to receive OwnTracks webhook events.
-    - [ ] Implement validation and parsing logic for entry/exit events.
+- [x] Task: Webhook Endpoint Implementation [d7aa2da]
+    - [x] Create a POST endpoint to receive OwnTracks webhook events.
+    - [x] Implement validation and parsing logic for entry/exit events.
 - [ ] Task: Basic Data Storage
     - [ ] Set up a lightweight database (e.g., SQLite) to store attendance logs.
     - [ ] Implement service methods to record entry and exit timestamps.
