@@ -16,7 +16,7 @@
 - [x] Task: Telegram Bot Setup [216d7f7]
     - [x] Register the bot with Telegram Father and initialize the grammY client.
     - [x] Implement basic bot commands (/start, /status).
-- [ ] Task: Attendance Calculation Logic
-    - [ ] Write logic to calculate total time spent based on entry/exit logs for the current week.
-    - [ ] Implement the /status command to display weekly progress and remaining hours.
+- [x] Task: Attendance Calculation Logic [08e5479]
+    - [x] Write logic to calculate total time spent based on entry/exit logs for the current week.
+    - [x] Implement the /status command to display weekly progress and remaining hours.
 - [ ] Task: Conductor - User Manual Verification 'Telegram Bot & Logic' (Protocol in workflow.md)
