@@ -13,9 +13,9 @@
 - [x] Task: Conductor - User Manual Verification 'Foundation & Webhook Integration' (Protocol in workflow.md)
 
 ## Phase 2: Telegram Bot & Logic
-- [ ] Task: Telegram Bot Setup
-    - [ ] Register the bot with Telegram Father and initialize the grammY client.
-    - [ ] Implement basic bot commands (/start, /status).
+- [x] Task: Telegram Bot Setup [216d7f7]
+    - [x] Register the bot with Telegram Father and initialize the grammY client.
+    - [x] Implement basic bot commands (/start, /status).
 - [ ] Task: Attendance Calculation Logic
     - [ ] Write logic to calculate total time spent based on entry/exit logs for the current week.
     - [ ] Implement the /status command to display weekly progress and remaining hours.
