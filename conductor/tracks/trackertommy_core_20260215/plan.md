@@ -7,9 +7,9 @@
 - [x] Task: Webhook Endpoint Implementation [d7aa2da]
     - [x] Create a POST endpoint to receive OwnTracks webhook events.
     - [x] Implement validation and parsing logic for entry/exit events.
-- [ ] Task: Basic Data Storage
-    - [ ] Set up a lightweight database (e.g., SQLite) to store attendance logs.
-    - [ ] Implement service methods to record entry and exit timestamps.
+- [x] Task: Basic Data Storage [a21eeaa]
+    - [x] Set up a lightweight database (e.g., SQLite) to store attendance logs.
+    - [x] Implement service methods to record entry and exit timestamps.
 - [ ] Task: Conductor - User Manual Verification 'Foundation & Webhook Integration' (Protocol in workflow.md)
 
 ## Phase 2: Telegram Bot & Logic
