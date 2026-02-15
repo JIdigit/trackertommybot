@@ -22,3 +22,18 @@ export async function getRecentLogs(limit = 10) {
     orderBy: { timestamp: 'desc' },
   });
 }
+
+export async function getWeeklyLogs() {
+  const now = new Date();
+  const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)));
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  return await prisma.attendanceLog.findMany({
+    where: {
+      timestamp: {
+        gte: startOfWeek,
+      },
+    },
+    orderBy: { timestamp: 'asc' },
+  });
+}
