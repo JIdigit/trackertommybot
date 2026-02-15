@@ -19,4 +19,14 @@
 - [x] Task: Attendance Calculation Logic [08e5479]
     - [x] Write logic to calculate total time spent based on entry/exit logs for the current week.
     - [x] Implement the /status command to display weekly progress and remaining hours.
-- [ ] Task: Conductor - User Manual Verification 'Telegram Bot & Logic' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Telegram Bot & Logic' (Protocol in workflow.md)
+
+## Phase 3: Polish & Deployment
+- [x] Task: Attendance History Feature
+    - [x] Implement daily breakdown logic for the current week.
+    - [x] Implement last week's total attendance calculation.
+    - [x] Add "📅 History" button to the Telegram bot interface.
+- [ ] Task: Deployment Setup
+    - [ ] Configure the server for production (e.g., using PM2 or Docker).
+    - [ ] (Optional) Set up a simple health-check endpoint.
+- [ ] Task: Conductor - User Manual Verification 'Polish & Deployment' (Protocol in workflow.md)

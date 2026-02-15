@@ -37,3 +37,22 @@ export async function getWeeklyLogs() {
     orderBy: { timestamp: 'asc' },
   });
 }
+
+export async function getLastWeekLogs() {
+  const now = new Date();
+  const startOfThisWeek = new Date(now.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)));
+  startOfThisWeek.setHours(0, 0, 0, 0);
+  
+  const startOfLastWeek = new Date(startOfThisWeek);
+  startOfLastWeek.setDate(startOfLastWeek.getDate() - 7);
+  
+  return await prisma.attendanceLog.findMany({
+    where: {
+      timestamp: {
+        gte: startOfLastWeek,
+        lt: startOfThisWeek,
+      },
+    },
+    orderBy: { timestamp: 'asc' },
+  });
+}
