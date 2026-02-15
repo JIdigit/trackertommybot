@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Create the core TrackerTommy functionality**
+- [~] **Track: Create the core TrackerTommy functionality**
   *Link: [./tracks/trackertommy_core_20260215/](./tracks/trackertommy_core_20260215/)*

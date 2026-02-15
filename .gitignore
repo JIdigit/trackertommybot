@@ -1,1 +1,3 @@
 node_modules\n.env\ndist\n*.db\n*.db-journal
+
+/src/generated/prisma
