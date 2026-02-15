@@ -25,4 +25,4 @@
 - [x] Task: Deployment Setup
     - [x] Configure the server for production (added Railway config and scripts).
     - [x] Set up a simple health-check endpoint (/health).
-- [ ] Task: Conductor - User Manual Verification 'Polish & Deployment' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Polish & Deployment' (Protocol in workflow.md)
