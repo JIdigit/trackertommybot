@@ -12,7 +12,7 @@
     - [x] Implement service methods to record entry and exit timestamps.
 - [x] Task: Conductor - User Manual Verification 'Foundation & Webhook Integration' (Protocol in workflow.md)
 
-## Phase 2: Telegram Bot & Logic
+## Phase 2: Telegram Bot & Logic [checkpoint: 2ab89a2]
 - [x] Task: Telegram Bot Setup [216d7f7]
     - [x] Register the bot with Telegram Father and initialize the grammY client.
     - [x] Implement basic bot commands (/start, /status).
