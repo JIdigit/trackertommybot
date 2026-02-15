@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { calculateWeeklyAttendance, calculateDailyAttendance } from '../src/attendance';
+import { calculateWeeklyAttendance, calculateDailyAttendance } from '../src/attendance.js';
 
 test('calculateWeeklyAttendance should return 0 if no logs', () => {
   expect(calculateWeeklyAttendance([])).toBe(0);

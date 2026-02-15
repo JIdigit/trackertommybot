@@ -1,7 +1,7 @@
 import { Bot, Keyboard } from 'grammy';
-import { config } from './config';
-import { getWeeklyLogs, getLastWeekLogs } from './storage';
-import { calculateWeeklyAttendance, calculateDailyAttendance } from './attendance';
+import { config } from './config.js';
+import { getWeeklyLogs, getLastWeekLogs } from './storage.js';
+import { calculateWeeklyAttendance, calculateDailyAttendance } from './attendance.js';
 
 export const bot = new Bot(config.TELEGRAM_BOT_TOKEN);
 
@@ -79,7 +79,8 @@ async function sendHistory(ctx: any) {
       for (const day of days) {
         const date = new Date(day);
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-        message += `• ${dayName} (${day}): *${formatMinutes(dailyThisWeek[day])}*\n`;
+        const minutes = dailyThisWeek[day] ?? 0;
+        message += `• ${dayName} (${day}): *${formatMinutes(minutes)}*\n`;
       }
     }
 

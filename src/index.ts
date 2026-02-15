@@ -1,6 +1,6 @@
-import { app } from './app';
-import { bot } from './bot';
-import { config } from './config';
+import { app } from './app.js';
+import { bot } from './bot.js';
+import { config } from './config.js';
 
 const port = config.PORT;
 

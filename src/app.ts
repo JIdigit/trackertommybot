@@ -1,6 +1,6 @@
 import express from 'express';
 import { z } from 'zod';
-import { recordAttendance } from './storage';
+import { recordAttendance } from './storage.js';
 
 export const app = express();
 app.use(express.json());

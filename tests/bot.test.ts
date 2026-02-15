@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest';
-import { bot } from '../src/bot';
+import { bot } from '../src/bot.js';
 
 test('bot should be initialized with token', () => {
   expect(bot.token).toBeDefined();

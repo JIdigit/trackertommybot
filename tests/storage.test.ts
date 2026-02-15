@@ -1,6 +1,6 @@
 import { expect, test, beforeAll, afterAll } from 'vitest';
 import { PrismaClient } from '@prisma/client';
-import { recordAttendance } from '../src/storage';
+import { recordAttendance } from '../src/storage.js';
 
 const prisma = new PrismaClient();
 

@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest';
-import { getConfig } from '../src/config';
+import { getConfig } from '../src/config.js';
 
 test('config should have default port 3000 if PORT is not set', () => {
   vi.stubEnv('PORT', '');
