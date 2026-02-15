@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "AttendanceLog" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "event" TEXT NOT NULL,
+    "location" TEXT NOT NULL,
+    "timestamp" DATETIME NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

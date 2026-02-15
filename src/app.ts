@@ -1,5 +1,6 @@
 import express from 'express';
 import { z } from 'zod';
+import { recordAttendance } from './storage';
 
 export const app = express();
 app.use(express.json());
@@ -11,7 +12,7 @@ const OwnTracksTransitionSchema = z.object({
   tst: z.number(),
 });
 
-app.post('/webhook/owntracks', (req, res) => {
+app.post('/webhook/owntracks', async (req, res) => {
   const result = OwnTracksTransitionSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -21,7 +22,15 @@ app.post('/webhook/owntracks', (req, res) => {
   const { event, desc, tst } = result.data;
   console.log(`Received OwnTracks event: ${event} for ${desc} at ${tst}`);
 
-  // TODO: Save to database in next task
-  
-  res.status(200).json({ status: 'ok' });
+  try {
+    await recordAttendance({
+      event,
+      location: desc,
+      timestamp: new Date(tst * 1000),
+    });
+    res.status(200).json({ status: 'ok' });
+  } catch (error) {
+    console.error('Failed to record attendance:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
