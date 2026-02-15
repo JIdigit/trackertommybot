@@ -1,13 +1,22 @@
-import { Bot } from 'grammy';
+import { Bot, Keyboard } from 'grammy';
 import { config } from './config';
 import { getWeeklyLogs } from './storage';
 import { calculateWeeklyAttendance } from './attendance';
 
 export const bot = new Bot(config.TELEGRAM_BOT_TOKEN);
 
-bot.command('start', (ctx) => ctx.reply('🏫 Welcome to TrackerTommy!\n\nI will automatically track your school attendance via OwnTracks.\n\nUse /status to check your progress.'));
+const mainKeyboard = new Keyboard()
+  .text('📊 Status')
+  .resized();
 
-bot.command('status', async (ctx) => {
+bot.command('start', (ctx) => 
+  ctx.reply(
+    '🏫 Welcome to TrackerTommy!\n\nI will automatically track your school attendance via OwnTracks.\n\nUse the button below or type /status to check your progress.',
+    { reply_markup: mainKeyboard }
+  )
+);
+
+async function sendStatus(ctx: any) {
   try {
     const logs = await getWeeklyLogs();
     const totalMinutes = calculateWeeklyAttendance(logs);
@@ -20,7 +29,15 @@ bot.command('status', async (ctx) => {
     const remHours = Math.floor(remainingMinutes / 60);
     const remMins = remainingMinutes % 60;
 
+    // Visual progress bar
+    const progressPercent = Math.min(100, (totalMinutes / (GOAL_HOURS * 60)) * 100);
+    const progressBarLength = 10;
+    const filledBlocks = Math.round((progressPercent / 100) * progressBarLength);
+    const emptyBlocks = progressBarLength - filledBlocks;
+    const progressBar = '🟩'.repeat(filledBlocks) + '⬜'.repeat(emptyBlocks);
+
     let message = `📊 *Weekly Progress*\n\n`;
+    message += `${progressBar} ${Math.round(progressPercent)}%\n\n`;
     message += `⏱ Total spent: *${hours}h ${minutes}m*\n`;
     message += `🎯 Weekly goal: *${GOAL_HOURS}h*\n`;
     
@@ -30,9 +47,15 @@ bot.command('status', async (ctx) => {
       message += `✅ Goal reached! Well done.\n`;
     }
 
-    await ctx.reply(message, { parse_mode: 'Markdown' });
+    await ctx.reply(message, { 
+      parse_mode: 'Markdown',
+      reply_markup: mainKeyboard
+    });
   } catch (error) {
-    console.error('Status command error:', error);
+    console.error('Status calculation error:', error);
     await ctx.reply('❌ Failed to calculate status. Please try again later.');
   }
-});
+}
+
+bot.command('status', sendStatus);
+bot.hears('📊 Status', sendStatus);
