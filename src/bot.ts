@@ -11,12 +11,23 @@ const mainKeyboard = new Keyboard()
   .row()
   .resized();
 
-bot.command('start', (ctx) => 
-  ctx.reply(
-    '🏫 Welcome to TrackerTommy!\n\nI will automatically track your school attendance via OwnTracks.\n\nUse the buttons below to check your progress.',
-    { reply_markup: mainKeyboard }
-  )
-);
+bot.command('start', (ctx) => {
+  const userId = ctx.from?.id;
+  const url = `https://${config.PUBLIC_URL}/webhook/owntracks?user=${userId}`;
+  
+  return ctx.reply(
+    `🏫 *Welcome to TrackerTommy!*\n\n` +
+    `Your Telegram ID is: \`${userId}\`\n\n` +
+    `*Setup Instructions:*\n` +
+    `1. Open OwnTracks app.\n` +
+    `2. Set Mode to *HTTP*.\n` +
+    `3. In Connection -> Host, paste this URL:\n\n` +
+    `\`${url}\`\n\n` +
+    `4. Create a Region named \`School\` at your school's location.\n\n` +
+    `I will then track your 20h weekly goal automatically!`,
+    { parse_mode: 'Markdown', reply_markup: mainKeyboard }
+  );
+});
 
 function formatMinutes(totalMinutes: number) {
   const hours = Math.floor(totalMinutes / 60);

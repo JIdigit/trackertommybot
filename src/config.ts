@@ -13,6 +13,7 @@ export function getConfig() {
     TELEGRAM_BOT_TOKEN: TELEGRAM_BOT_TOKEN || '',
     DATABASE_URL: process.env.DATABASE_URL || 'file:./dev.db',
     NODE_ENV: process.env.NODE_ENV || 'development',
+    PUBLIC_URL: process.env.RAILWAY_PUBLIC_DOMAIN || process.env.PUBLIC_URL || 'your-app.up.railway.app',
   };
 }
 
