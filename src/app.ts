@@ -5,6 +5,10 @@ import { recordAttendance } from './storage';
 export const app = express();
 app.use(express.json());
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 const OwnTracksTransitionSchema = z.object({
   _type: z.literal('transition'),
   event: z.enum(['enter', 'leave']),

@@ -22,11 +22,7 @@
 - [x] Task: Conductor - User Manual Verification 'Telegram Bot & Logic' (Protocol in workflow.md)
 
 ## Phase 3: Polish & Deployment
-- [x] Task: Attendance History Feature
-    - [x] Implement daily breakdown logic for the current week.
-    - [x] Implement last week's total attendance calculation.
-    - [x] Add "📅 History" button to the Telegram bot interface.
-- [ ] Task: Deployment Setup
-    - [ ] Configure the server for production (e.g., using PM2 or Docker).
-    - [ ] (Optional) Set up a simple health-check endpoint.
+- [x] Task: Deployment Setup
+    - [x] Configure the server for production (added Railway config and scripts).
+    - [x] Set up a simple health-check endpoint (/health).
 - [ ] Task: Conductor - User Manual Verification 'Polish & Deployment' (Protocol in workflow.md)
