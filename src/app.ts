@@ -17,6 +17,12 @@ const OwnTracksTransitionSchema = z.object({
 });
 
 app.post('/webhook/owntracks', async (req, res) => {
+  const userId = req.query.user as string;
+  
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required in query params' });
+  }
+
   const result = OwnTracksTransitionSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -24,10 +30,11 @@ app.post('/webhook/owntracks', async (req, res) => {
   }
 
   const { event, desc, tst } = result.data;
-  console.log(`Received OwnTracks event: ${event} for ${desc} at ${tst}`);
+  console.log(`Received OwnTracks event for ${userId}: ${event} for ${desc} at ${tst}`);
 
   try {
     await recordAttendance({
+      userId,
       event,
       location: desc,
       timestamp: new Date(tst * 1000),

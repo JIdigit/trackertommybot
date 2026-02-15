@@ -26,7 +26,10 @@ function formatMinutes(totalMinutes: number) {
 
 async function sendStatus(ctx: any) {
   try {
-    const logs = await getWeeklyLogs();
+    const userId = ctx.from?.id.toString();
+    if (!userId) return;
+
+    const logs = await getWeeklyLogs(userId);
     const totalMinutes = calculateWeeklyAttendance(logs);
     
     const GOAL_HOURS = 20;
@@ -61,9 +64,12 @@ async function sendStatus(ctx: any) {
 
 async function sendHistory(ctx: any) {
   try {
+    const userId = ctx.from?.id.toString();
+    if (!userId) return;
+
     const [thisWeekLogs, lastWeekLogs] = await Promise.all([
-      getWeeklyLogs(),
-      getLastWeekLogs()
+      getWeeklyLogs(userId),
+      getLastWeekLogs(userId)
     ]);
 
     const dailyThisWeek = calculateDailyAttendance(thisWeekLogs);
