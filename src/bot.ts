@@ -29,6 +29,8 @@ bot.command('start', (ctx) => {
   );
 });
 
+bot.command('ping', (ctx) => ctx.reply('pong'));
+
 function formatMinutes(totalMinutes: number) {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
