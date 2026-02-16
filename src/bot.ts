@@ -84,7 +84,7 @@ async function sendStatus(ctx: any) {
     });
   } catch (error) {
     console.error('Status error:', error);
-    await ctx.reply('❌ Failed to calculate status.');
+    await ctx.reply(`❌ Failed to calculate status. Error: ${error instanceof Error ? error.message : 'Unknown'}`);
   }
 }
 
@@ -125,7 +125,7 @@ async function sendHistory(ctx: any) {
     });
   } catch (error) {
     console.error('History error:', error);
-    await ctx.reply('❌ Failed to fetch history.');
+    await ctx.reply(`❌ Failed to fetch history. Error: ${error instanceof Error ? error.message : 'Unknown'}`);
   }
 }
 

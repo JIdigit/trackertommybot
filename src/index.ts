@@ -13,11 +13,7 @@ const execAsync = promisify(exec);
 app.listen(port, '0.0.0.0', async () => {
   console.log(`TrackerTommy server is running on port ${port}`);
 
-  // Start Telegram bot immediately
-  bot.start().catch(err => console.error('Bot error:', err));
-  console.log('TrackerTommy bot is running...');
-
-  // Run migrations in background
+  // Run migrations first
   try {
     console.log('Ensuring prisma directory exists...');
     await execAsync('mkdir -p /app/prisma');
@@ -25,7 +21,13 @@ app.listen(port, '0.0.0.0', async () => {
     console.log('Running database migrations...');
     await execAsync('npx prisma migrate deploy');
     console.log('Migrations completed successfully.');
+
+    // Start Telegram bot ONLY after migrations are done
+    bot.start().catch(err => console.error('Bot error:', err));
+    console.log('TrackerTommy bot is running...');
   } catch (error) {
     console.error('Migration error:', error);
+    // Even if migration fails, try to start bot so we can at least see it's alive
+    bot.start().catch(err => console.error('Bot error after migration failure:', err));
   }
 });
