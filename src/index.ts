@@ -20,7 +20,7 @@ app.listen(port, '0.0.0.0', () => {
   const setup = async () => {
     try {
       console.log('Ensuring database directory exists...');
-      await new Promise((resolve) => exec('mkdir -p /app/prisma', resolve));
+      await new Promise((resolve) => exec('mkdir -p /app/database', resolve));
 
       console.log(`Synchronizing database schema using: ${schemaPath}`);
       // Execute db push with absolute schema path
