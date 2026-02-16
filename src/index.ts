@@ -3,6 +3,13 @@ import { bot, setDbReady, setDbError } from './bot.js';
 import { config } from './config.js';
 
 import { exec } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(__dirname, '..');
+const schemaPath = path.join(rootDir, 'prisma', 'schema.prisma');
+
 const port = config.PORT;
 
 // Start Express server
@@ -15,10 +22,10 @@ app.listen(port, '0.0.0.0', () => {
       console.log('Ensuring database directory exists...');
       await new Promise((resolve) => exec('mkdir -p /app/prisma', resolve));
 
-      console.log('Synchronizing database schema...');
-      // Execute db push with explicit schema path
+      console.log(`Synchronizing database schema using: ${schemaPath}`);
+      // Execute db push with absolute schema path
       await new Promise((resolve, reject) => {
-        exec('npx prisma db push --accept-data-loss --schema=./prisma/schema.prisma', 
+        exec(`npx prisma db push --accept-data-loss --schema="${schemaPath}"`, 
           { env: { ...process.env, DATABASE_URL: config.DATABASE_URL } }, 
           (error, stdout, stderr) => {
           if (error) {
