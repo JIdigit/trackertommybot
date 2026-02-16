@@ -1,5 +1,5 @@
 import { app } from './app.js';
-import { bot } from './bot.js';
+import { bot, setDbReady } from './bot.js';
 import { config } from './config.js';
 
 import { exec } from 'child_process';
@@ -12,10 +12,13 @@ app.listen(port, '0.0.0.0', () => {
   // Initialize Database and Bot in background
   const setup = async () => {
     try {
+      console.log('Ensuring database directory exists...');
+      await new Promise((resolve) => exec('mkdir -p /app/prisma', resolve));
+
       console.log('Synchronizing database schema...');
       // Execute db push to ensure tables exist
       await new Promise((resolve, reject) => {
-        exec('npx prisma db push --accept-data-loss', (error, stdout, stderr) => {
+        exec('npx prisma db push --accept-data-loss', { env: process.env }, (error, stdout, stderr) => {
           if (error) {
             console.error(`DB Push Error: ${stderr}`);
             reject(error);
@@ -26,6 +29,7 @@ app.listen(port, '0.0.0.0', () => {
         });
       });
       console.log('Database synchronized.');
+      setDbReady();
 
       // Start Telegram bot
       await bot.start();
