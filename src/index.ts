@@ -18,9 +18,9 @@ app.listen(port, '0.0.0.0', async () => {
     console.log('Ensuring prisma directory exists...');
     await execAsync('mkdir -p /app/prisma');
     
-    console.log('Running database migrations...');
-    await execAsync('npx prisma migrate deploy');
-    console.log('Migrations completed successfully.');
+    console.log('Running database schema synchronization...');
+    await execAsync('npx prisma db push');
+    console.log('Schema synchronized successfully.');
 
     // Start Telegram bot ONLY after migrations are done
     bot.start().catch(err => console.error('Bot error:', err));
