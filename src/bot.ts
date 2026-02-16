@@ -5,6 +5,19 @@ import { calculateWeeklyAttendance, calculateDailyAttendance } from './attendanc
 
 export const bot = new Bot(config.TELEGRAM_BOT_TOKEN);
 
+// Global error handler
+bot.catch((err) => {
+  console.error(`Error while handling update ${err.ctx.update.update_id}:`);
+  console.error(err.error);
+});
+
+bot.api.getMe().then((me) => {
+  console.log(`Bot is logged in as @${me.username}`);
+}).catch(err => {
+  console.error('Failed to login to Telegram. Check your TELEGRAM_BOT_TOKEN.');
+  console.error(err);
+});
+
 const mainKeyboard = new Keyboard()
   .text('📊 Status')
   .text('📅 History')
