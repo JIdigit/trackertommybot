@@ -1,5 +1,5 @@
 import { app } from './app.js';
-import { bot, setDbReady } from './bot.js';
+import { bot, setDbReady, setDbError } from './bot.js';
 import { config } from './config.js';
 
 import { exec } from 'child_process';
@@ -16,12 +16,15 @@ app.listen(port, '0.0.0.0', () => {
       await new Promise((resolve) => exec('mkdir -p /app/prisma', resolve));
 
       console.log('Synchronizing database schema...');
-      // Execute db push to ensure tables exist
+      // Execute db push with explicit schema path
       await new Promise((resolve, reject) => {
-        exec('npx prisma db push --accept-data-loss', { env: process.env }, (error, stdout, stderr) => {
+        exec('npx prisma db push --accept-data-loss --schema=./prisma/schema.prisma', 
+          { env: { ...process.env, DATABASE_URL: config.DATABASE_URL } }, 
+          (error, stdout, stderr) => {
           if (error) {
             console.error(`DB Push Error: ${stderr}`);
-            reject(error);
+            // Report error to bot readiness
+            reject(new Error(stderr || 'Unknown Prisma Error'));
           } else {
             console.log(stdout);
             resolve(stdout);
@@ -36,6 +39,7 @@ app.listen(port, '0.0.0.0', () => {
       console.log('TrackerTommy bot is running...');
     } catch (err) {
       console.error('Setup failed:', err);
+      setDbError(err instanceof Error ? err.message : String(err));
       // Try to start bot anyway if DB fails
       bot.start().catch(e => console.error('Bot emergency start failed:', e));
     }

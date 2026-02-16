@@ -6,7 +6,9 @@ import { calculateWeeklyAttendance, calculateDailyAttendance } from './attendanc
 export const bot = new Bot(config.TELEGRAM_BOT_TOKEN);
 
 export let isDbReady = false;
+export let dbError: string | null = null;
 export const setDbReady = () => { isDbReady = true; };
+export const setDbError = (msg: string) => { dbError = msg; };
 
 // Global error handler
 bot.catch((err) => {
@@ -55,7 +57,7 @@ function formatMinutes(totalMinutes: number) {
 
 async function sendStatus(ctx: any) {
   if (!isDbReady) {
-    return ctx.reply('⏳ Database is still initializing. Please try again in a few seconds...');
+    return ctx.reply(`⏳ Database is still initializing...${dbError ? `\n\n❌ Error: ${dbError}` : ''}`);
   }
   try {
     const userId = ctx.from?.id.toString();
@@ -96,7 +98,7 @@ async function sendStatus(ctx: any) {
 
 async function sendHistory(ctx: any) {
   if (!isDbReady) {
-    return ctx.reply('⏳ Database is still initializing. Please try again in a few seconds...');
+    return ctx.reply(`⏳ Database is still initializing...${dbError ? `\n\n❌ Error: ${dbError}` : ''}`);
   }
   try {
     const userId = ctx.from?.id.toString();
